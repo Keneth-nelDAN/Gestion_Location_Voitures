@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLocationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_idLocation}" for="idLocation" />
+                    <h:inputText id="idLocation" value="#{locationController.selected.idLocation}" title="#{bundle.CreateLocationTitle_idLocation}" required="true" requiredMessage="#{bundle.CreateLocationRequiredMessage_idLocation}"/>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_dateCreation}" for="dateCreation" />
+                    <h:inputText id="dateCreation" value="#{locationController.selected.dateCreation}" title="#{bundle.CreateLocationTitle_dateCreation}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_dateDebutPrevue}" for="dateDebutPrevue" />
+                    <h:inputText id="dateDebutPrevue" value="#{locationController.selected.dateDebutPrevue}" title="#{bundle.CreateLocationTitle_dateDebutPrevue}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_dateFinPrevue}" for="dateFinPrevue" />
+                    <h:inputText id="dateFinPrevue" value="#{locationController.selected.dateFinPrevue}" title="#{bundle.CreateLocationTitle_dateFinPrevue}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_dateDebutEffective}" for="dateDebutEffective" />
+                    <h:inputText id="dateDebutEffective" value="#{locationController.selected.dateDebutEffective}" title="#{bundle.CreateLocationTitle_dateDebutEffective}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_tarifJournalierApplique}" for="tarifJournalierApplique" />
+                    <h:inputText id="tarifJournalierApplique" value="#{locationController.selected.tarifJournalierApplique}" title="#{bundle.CreateLocationTitle_tarifJournalierApplique}" />
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_montantEstime}" for="montantEstime" />
+                    <h:inputText id="montantEstime" value="#{locationController.selected.montantEstime}" title="#{bundle.CreateLocationTitle_montantEstime}" />
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_statutLocation}" for="statutLocation" />
+                    <h:inputText id="statutLocation" value="#{locationController.selected.statutLocation}" title="#{bundle.CreateLocationTitle_statutLocation}" />
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_retour}" for="retour" />
+                    <h:selectOneMenu id="retour" value="#{locationController.selected.retour}" title="#{bundle.CreateLocationTitle_retour}" >
+                        <f:selectItems value="#{retourController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_idClient}" for="idClient" />
+                    <h:selectOneMenu id="idClient" value="#{locationController.selected.idClient}" title="#{bundle.CreateLocationTitle_idClient}" required="true" requiredMessage="#{bundle.CreateLocationRequiredMessage_idClient}">
+                        <f:selectItems value="#{clientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_idUtilisateur}" for="idUtilisateur" />
+                    <h:selectOneMenu id="idUtilisateur" value="#{locationController.selected.idUtilisateur}" title="#{bundle.CreateLocationTitle_idUtilisateur}" required="true" requiredMessage="#{bundle.CreateLocationRequiredMessage_idUtilisateur}">
+                        <f:selectItems value="#{utilisateurController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_idVehicule}" for="idVehicule" />
+                    <h:selectOneMenu id="idVehicule" value="#{locationController.selected.idVehicule}" title="#{bundle.CreateLocationTitle_idVehicule}" required="true" requiredMessage="#{bundle.CreateLocationRequiredMessage_idVehicule}">
+                        <f:selectItems value="#{vehiculeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{locationController.create}" value="#{bundle.CreateLocationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{locationController.prepareList}" value="#{bundle.CreateLocationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLocationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

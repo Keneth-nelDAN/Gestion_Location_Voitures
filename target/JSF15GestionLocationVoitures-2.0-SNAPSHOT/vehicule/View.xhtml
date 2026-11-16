@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewVehiculeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_idVehicule}"/>
+                    <h:outputText value="#{vehiculeController.selected.idVehicule}" title="#{bundle.ViewVehiculeTitle_idVehicule}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_immatriculation}"/>
+                    <h:outputText value="#{vehiculeController.selected.immatriculation}" title="#{bundle.ViewVehiculeTitle_immatriculation}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_marque}"/>
+                    <h:outputText value="#{vehiculeController.selected.marque}" title="#{bundle.ViewVehiculeTitle_marque}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_modele}"/>
+                    <h:outputText value="#{vehiculeController.selected.modele}" title="#{bundle.ViewVehiculeTitle_modele}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_categorie}"/>
+                    <h:outputText value="#{vehiculeController.selected.categorie}" title="#{bundle.ViewVehiculeTitle_categorie}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_couleur}"/>
+                    <h:outputText value="#{vehiculeController.selected.couleur}" title="#{bundle.ViewVehiculeTitle_couleur}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_kilometrage}"/>
+                    <h:outputText value="#{vehiculeController.selected.kilometrage}" title="#{bundle.ViewVehiculeTitle_kilometrage}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_tarifJournalier}"/>
+                    <h:outputText value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.ViewVehiculeTitle_tarifJournalier}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_etatVehicule}"/>
+                    <h:outputText value="#{vehiculeController.selected.etatVehicule}" title="#{bundle.ViewVehiculeTitle_etatVehicule}"/>
+                    <h:outputText value="#{bundle.ViewVehiculeLabel_statutDisponible}"/>
+                    <h:outputText value="#{vehiculeController.selected.statutDisponible}" title="#{bundle.ViewVehiculeTitle_statutDisponible}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{vehiculeController.destroyAndView}" value="#{bundle.ViewVehiculeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewVehiculeEditLink}"/>
+                <br />
+                <h:commandLink action="#{vehiculeController.prepareCreate}" value="#{bundle.ViewVehiculeCreateLink}" />
+                <br />
+                <h:commandLink action="#{vehiculeController.prepareList}" value="#{bundle.ViewVehiculeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewVehiculeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

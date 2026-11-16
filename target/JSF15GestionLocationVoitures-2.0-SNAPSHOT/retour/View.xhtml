@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRetourTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRetourLabel_idRetour}"/>
+                    <h:outputText value="#{retourController.selected.idRetour}" title="#{bundle.ViewRetourTitle_idRetour}"/>
+                    <h:outputText value="#{bundle.ViewRetourLabel_dateRetourEffective}"/>
+                    <h:outputText value="#{retourController.selected.dateRetourEffective}" title="#{bundle.ViewRetourTitle_dateRetourEffective}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewRetourLabel_kilometrageRetour}"/>
+                    <h:outputText value="#{retourController.selected.kilometrageRetour}" title="#{bundle.ViewRetourTitle_kilometrageRetour}"/>
+                    <h:outputText value="#{bundle.ViewRetourLabel_etatAuRetour}"/>
+                    <h:outputText value="#{retourController.selected.etatAuRetour}" title="#{bundle.ViewRetourTitle_etatAuRetour}"/>
+                    <h:outputText value="#{bundle.ViewRetourLabel_observations}"/>
+                    <h:outputText value="#{retourController.selected.observations}" title="#{bundle.ViewRetourTitle_observations}"/>
+                    <h:outputText value="#{bundle.ViewRetourLabel_idLocation}"/>
+                    <h:outputText value="#{retourController.selected.idLocation}" title="#{bundle.ViewRetourTitle_idLocation}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{retourController.destroyAndView}" value="#{bundle.ViewRetourDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRetourEditLink}"/>
+                <br />
+                <h:commandLink action="#{retourController.prepareCreate}" value="#{bundle.ViewRetourCreateLink}" />
+                <br />
+                <h:commandLink action="#{retourController.prepareList}" value="#{bundle.ViewRetourShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRetourIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

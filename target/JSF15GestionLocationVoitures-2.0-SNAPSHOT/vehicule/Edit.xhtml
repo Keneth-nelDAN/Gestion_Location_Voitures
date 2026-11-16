@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditVehiculeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_idVehicule}" for="idVehicule" />
+                    <h:inputText id="idVehicule" value="#{vehiculeController.selected.idVehicule}" title="#{bundle.EditVehiculeTitle_idVehicule}" required="true" requiredMessage="#{bundle.EditVehiculeRequiredMessage_idVehicule}"/>
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_immatriculation}" for="immatriculation" />
+                    <h:inputText id="immatriculation" value="#{vehiculeController.selected.immatriculation}" title="#{bundle.EditVehiculeTitle_immatriculation}" required="true" requiredMessage="#{bundle.EditVehiculeRequiredMessage_immatriculation}"/>
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_marque}" for="marque" />
+                    <h:inputText id="marque" value="#{vehiculeController.selected.marque}" title="#{bundle.EditVehiculeTitle_marque}" required="true" requiredMessage="#{bundle.EditVehiculeRequiredMessage_marque}"/>
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_modele}" for="modele" />
+                    <h:inputText id="modele" value="#{vehiculeController.selected.modele}" title="#{bundle.EditVehiculeTitle_modele}" required="true" requiredMessage="#{bundle.EditVehiculeRequiredMessage_modele}"/>
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_categorie}" for="categorie" />
+                    <h:inputText id="categorie" value="#{vehiculeController.selected.categorie}" title="#{bundle.EditVehiculeTitle_categorie}" />
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_couleur}" for="couleur" />
+                    <h:inputText id="couleur" value="#{vehiculeController.selected.couleur}" title="#{bundle.EditVehiculeTitle_couleur}" />
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_kilometrage}" for="kilometrage" />
+                    <h:inputText id="kilometrage" value="#{vehiculeController.selected.kilometrage}" title="#{bundle.EditVehiculeTitle_kilometrage}" />
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_tarifJournalier}" for="tarifJournalier" />
+                    <h:inputText id="tarifJournalier" value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.EditVehiculeTitle_tarifJournalier}" />
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_etatVehicule}" for="etatVehicule" />
+                    <h:inputText id="etatVehicule" value="#{vehiculeController.selected.etatVehicule}" title="#{bundle.EditVehiculeTitle_etatVehicule}" />
+                    <h:outputLabel value="#{bundle.EditVehiculeLabel_statutDisponible}" for="statutDisponible" />
+                    <h:inputText id="statutDisponible" value="#{vehiculeController.selected.statutDisponible}" title="#{bundle.EditVehiculeTitle_statutDisponible}" />
+                </h:panelGrid>
+                <h:commandLink action="#{vehiculeController.update}" value="#{bundle.EditVehiculeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditVehiculeViewLink}"/>
+                <br />
+                <h:commandLink action="#{vehiculeController.prepareList}" value="#{bundle.EditVehiculeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditVehiculeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

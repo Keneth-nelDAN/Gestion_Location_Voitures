@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRetourTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRetourLabel_idRetour}" for="idRetour" />
+                    <h:inputText id="idRetour" value="#{retourController.selected.idRetour}" title="#{bundle.EditRetourTitle_idRetour}" required="true" requiredMessage="#{bundle.EditRetourRequiredMessage_idRetour}"/>
+                    <h:outputLabel value="#{bundle.EditRetourLabel_dateRetourEffective}" for="dateRetourEffective" />
+                    <h:inputText id="dateRetourEffective" value="#{retourController.selected.dateRetourEffective}" title="#{bundle.EditRetourTitle_dateRetourEffective}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRetourLabel_kilometrageRetour}" for="kilometrageRetour" />
+                    <h:inputText id="kilometrageRetour" value="#{retourController.selected.kilometrageRetour}" title="#{bundle.EditRetourTitle_kilometrageRetour}" />
+                    <h:outputLabel value="#{bundle.EditRetourLabel_etatAuRetour}" for="etatAuRetour" />
+                    <h:inputText id="etatAuRetour" value="#{retourController.selected.etatAuRetour}" title="#{bundle.EditRetourTitle_etatAuRetour}" />
+                    <h:outputLabel value="#{bundle.EditRetourLabel_observations}" for="observations" />
+                    <h:inputText id="observations" value="#{retourController.selected.observations}" title="#{bundle.EditRetourTitle_observations}" />
+                    <h:outputLabel value="#{bundle.EditRetourLabel_idLocation}" for="idLocation" />
+                    <h:selectOneMenu id="idLocation" value="#{retourController.selected.idLocation}" title="#{bundle.EditRetourTitle_idLocation}" required="true" requiredMessage="#{bundle.EditRetourRequiredMessage_idLocation}">
+                        <f:selectItems value="#{locationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{retourController.update}" value="#{bundle.EditRetourSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRetourViewLink}"/>
+                <br />
+                <h:commandLink action="#{retourController.prepareList}" value="#{bundle.EditRetourShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRetourIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateVehiculeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_idVehicule}" for="idVehicule" />
+                    <h:inputText id="idVehicule" value="#{vehiculeController.selected.idVehicule}" title="#{bundle.CreateVehiculeTitle_idVehicule}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_idVehicule}"/>
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_immatriculation}" for="immatriculation" />
+                    <h:inputText id="immatriculation" value="#{vehiculeController.selected.immatriculation}" title="#{bundle.CreateVehiculeTitle_immatriculation}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_immatriculation}"/>
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_marque}" for="marque" />
+                    <h:inputText id="marque" value="#{vehiculeController.selected.marque}" title="#{bundle.CreateVehiculeTitle_marque}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_marque}"/>
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_modele}" for="modele" />
+                    <h:inputText id="modele" value="#{vehiculeController.selected.modele}" title="#{bundle.CreateVehiculeTitle_modele}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_modele}"/>
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_categorie}" for="categorie" />
+                    <h:inputText id="categorie" value="#{vehiculeController.selected.categorie}" title="#{bundle.CreateVehiculeTitle_categorie}" />
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_couleur}" for="couleur" />
+                    <h:inputText id="couleur" value="#{vehiculeController.selected.couleur}" title="#{bundle.CreateVehiculeTitle_couleur}" />
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_kilometrage}" for="kilometrage" />
+                    <h:inputText id="kilometrage" value="#{vehiculeController.selected.kilometrage}" title="#{bundle.CreateVehiculeTitle_kilometrage}" />
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_tarifJournalier}" for="tarifJournalier" />
+                    <h:inputText id="tarifJournalier" value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.CreateVehiculeTitle_tarifJournalier}" />
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_etatVehicule}" for="etatVehicule" />
+                    <h:inputText id="etatVehicule" value="#{vehiculeController.selected.etatVehicule}" title="#{bundle.CreateVehiculeTitle_etatVehicule}" />
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_statutDisponible}" for="statutDisponible" />
+                    <h:inputText id="statutDisponible" value="#{vehiculeController.selected.statutDisponible}" title="#{bundle.CreateVehiculeTitle_statutDisponible}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{vehiculeController.create}" value="#{bundle.CreateVehiculeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{vehiculeController.prepareList}" value="#{bundle.CreateVehiculeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateVehiculeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
