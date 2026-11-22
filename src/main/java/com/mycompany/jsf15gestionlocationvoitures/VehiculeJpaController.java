@@ -74,6 +74,31 @@ public class VehiculeJpaController implements Serializable {
         }
     }
 
+    public void updateStatutDisponible(Integer idVehicule, String statutDisponible) throws RollbackFailureException, Exception {
+        EntityManager em = null;
+        try {
+            utx.begin();
+            em = getEntityManager();
+            em.joinTransaction();
+            Query query = em.createQuery("UPDATE Vehicule v SET v.statutDisponible = :statutDisponible WHERE v.idVehicule = :idVehicule");
+            query.setParameter("statutDisponible", statutDisponible);
+            query.setParameter("idVehicule", idVehicule);
+            query.executeUpdate();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public void edit(Vehicule vehicule) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {

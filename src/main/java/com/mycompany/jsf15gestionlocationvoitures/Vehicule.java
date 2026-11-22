@@ -203,7 +203,11 @@ public class Vehicule implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.jsf15gestionlocationvoitures.Vehicule[ idVehicule=" + idVehicule + " ]";
+        String label = (immatriculation == null ? "Véhicule" : immatriculation);
+        if (marque != null || modele != null) {
+            label += " - " + (marque == null ? "" : marque) + " " + (modele == null ? "" : modele);
+        }
+        return label.trim() + " (#" + idVehicule + ")";
     }
     
 }

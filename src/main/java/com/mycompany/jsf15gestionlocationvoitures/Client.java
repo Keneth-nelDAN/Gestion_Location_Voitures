@@ -183,7 +183,8 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.jsf15gestionlocationvoitures.Client[ idClient=" + idClient + " ]";
+        String label = ((prenom == null ? "" : prenom) + " " + (nom == null ? "" : nom)).trim();
+        return (label.isEmpty() ? "Client" : label) + " (#" + idClient + ")";
     }
     
 }

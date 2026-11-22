@@ -16,9 +16,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListUtilisateurEmpty}" rendered="#{utilisateurController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{utilisateurController.items.rowCount > 0}">
-                    <h:outputText value="#{utilisateurController.pagination.pageFirstItem + 1}..#{utilisateurController.pagination.pageLastItem + 1}/#{utilisateurController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{utilisateurController.previous}" value="#{bundle.Previous} #{utilisateurController.pagination.pageSize}" rendered="#{utilisateurController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{utilisateurController.next}" value="#{bundle.Next} #{utilisateurController.pagination.pageSize}" rendered="#{utilisateurController.pagination.hasNextPage}"/>&nbsp;
+                    <h:outputText value="#{utilisateurController.pagination.pageFirstItem + 1}..#{utilisateurController.pagination.pageLastItem + 1}/#{utilisateurController.pagination.itemsCount}"/>&#160;
+                    <h:commandLink action="#{utilisateurController.previous}" value="#{bundle.Previous} #{utilisateurController.pagination.pageSize}" rendered="#{utilisateurController.pagination.hasPreviousPage}"/>&#160;
+                    <h:commandLink action="#{utilisateurController.next}" value="#{bundle.Next} #{utilisateurController.pagination.pageSize}" rendered="#{utilisateurController.pagination.hasNextPage}"/>&#160;
                     <h:dataTable value="#{utilisateurController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -46,12 +46,6 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUtilisateurTitle_motDePasse}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.motDePasse}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUtilisateurTitle_role}"/>
                             </f:facet>
                             <h:outputText value="#{item.role}"/>
@@ -66,7 +60,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="&#160;"/>
                             </f:facet>
                             <h:commandLink action="#{utilisateurController.prepareView}" value="#{bundle.ListUtilisateurViewLink}"/>
                             <h:outputText value=" "/>

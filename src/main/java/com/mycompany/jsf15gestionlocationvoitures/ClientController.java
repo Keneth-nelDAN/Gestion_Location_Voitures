@@ -4,6 +4,7 @@ import com.mycompany.jsf15gestionlocationvoitures.util.JsfUtil;
 import com.mycompany.jsf15gestionlocationvoitures.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -83,6 +84,7 @@ public class ClientController implements Serializable {
 
     public String prepareCreate() {
         current = new Client();
+        current.setDateEnregistrement(new Date());
         selectedItemIndex = -1;
         return "Create";
     }

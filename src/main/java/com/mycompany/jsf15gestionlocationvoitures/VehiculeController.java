@@ -4,6 +4,10 @@ import com.mycompany.jsf15gestionlocationvoitures.util.JsfUtil;
 import com.mycompany.jsf15gestionlocationvoitures.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -83,6 +87,8 @@ public class VehiculeController implements Serializable {
 
     public String prepareCreate() {
         current = new Vehicule();
+        current.setStatutDisponible("Disponible");
+        current.setEtatVehicule("Bon état");
         selectedItemIndex = -1;
         return "Create";
     }
@@ -194,6 +200,35 @@ public class VehiculeController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(getJpaController().findVehiculeEntities(), true);
+    }
+
+    public SelectItem[] getVehiculesDisponiblesSelectOne() {
+        List<Vehicule> disponibles = new ArrayList<>();
+        for (Vehicule vehicule : getJpaController().findVehiculeEntities()) {
+            if (isDisponible(vehicule)) {
+                disponibles.add(vehicule);
+            }
+        }
+        return JsfUtil.getSelectItems(disponibles, true);
+    }
+
+    public boolean isDisponible(Vehicule vehicule) {
+        if (vehicule == null) {
+            return false;
+        }
+        String statut = normalizeStatut(vehicule.getStatutDisponible());
+        if (statut.isEmpty() || statut.equals("disponible") || statut.equals("oui") || statut.equals("libre") || statut.equals("true")) {
+            return true;
+        }
+        return statut.contains("disponible") && !statut.contains("indisponible") && !statut.contains("non");
+    }
+
+    private String normalizeStatut(String statut) {
+        if (statut == null) {
+            return "";
+        }
+        String value = Normalizer.normalize(statut, Normalizer.Form.NFD);
+        return value.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase(Locale.ROOT).trim();
     }
 
     @FacesConverter(forClass = Vehicule.class)

@@ -1,6 +1,8 @@
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Client.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/ClientController.java
+/home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/ClientEspaceController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/ClientJpaController.java
+/home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/DashboardController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/JakartaRestConfiguration.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Location.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/LocationController.java
@@ -8,6 +10,7 @@
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Retour.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/RetourController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/RetourJpaController.java
+/home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/SecurityController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Utilisateur.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/UtilisateurController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/UtilisateurJpaController.java

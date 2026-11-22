@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Demande de location</ui:define>
+        <ui:define name="body">
+            <p class="text-muted mb-4">Votre demande sera envoyée à la société et restera en attente de validation.</p>
+            <h:form>
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Véhicule choisi</h5>
+                                <p class="mb-1"><strong><h:outputText value="#{clientEspaceController.selected.idVehicule.immatriculation}" /></strong></p>
+                                <p class="mb-1"><h:outputText value="#{clientEspaceController.selected.idVehicule.marque} #{clientEspaceController.selected.idVehicule.modele}" /></p>
+                                <p class="mb-0 text-muted">
+                                    Tarif journalier :
+                                    <h:outputText value="#{clientEspaceController.selected.tarifJournalierApplique}"><f:convertNumber pattern="#,##0" /></h:outputText>
+                                    &#160;FCFA
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Informations de la demande</h5>
+                                <div class="mb-3">
+                                    <label for="client" class="form-label">Client</label>
+                                    <h:selectOneMenu id="client" value="#{clientEspaceController.clientId}" styleClass="form-select" required="true">
+                                        <f:selectItem itemLabel="-- Sélectionner --" itemValue="" />
+                                        <f:selectItems value="#{clientEspaceController.clients}" var="client" itemLabel="#{client.prenom} #{client.nom}" itemValue="#{client.idClient}" />
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="debut" class="form-label">Date de début prévue</label>
+                                    <h:inputText id="debut" value="#{clientEspaceController.selected.dateDebutPrevue}" styleClass="form-control" required="true">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:inputText>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fin" class="form-label">Date de fin prévue</label>
+                                    <h:inputText id="fin" value="#{clientEspaceController.selected.dateFinPrevue}" styleClass="form-control" required="true">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:inputText>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <h:commandLink styleClass="btn btn-primary" action="#{clientEspaceController.createDemande}" value="Envoyer la demande" />
+                    <h:link outcome="/espace-client/Vehicules" styleClass="btn btn-outline-secondary">Retour aux véhicules</h:link>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

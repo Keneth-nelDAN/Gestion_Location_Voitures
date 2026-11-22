@@ -203,7 +203,11 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.jsf15gestionlocationvoitures.Location[ idLocation=" + idLocation + " ]";
+        String label = "Location #" + idLocation;
+        if (statutLocation != null) {
+            label += " - " + statutLocation;
+        }
+        return label;
     }
     
 }

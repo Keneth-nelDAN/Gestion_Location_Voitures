@@ -134,7 +134,7 @@ public class Retour implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.jsf15gestionlocationvoitures.Retour[ idRetour=" + idRetour + " ]";
+        return "Retour #" + idRetour;
     }
     
 }

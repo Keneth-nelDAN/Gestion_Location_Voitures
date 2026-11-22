@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
@@ -6,45 +6,70 @@
       xmlns:f="jakarta.faces.core">
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateVehiculeTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateVehiculeTitle}" />
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_idVehicule}" for="idVehicule" />
-                    <h:inputText id="idVehicule" value="#{vehiculeController.selected.idVehicule}" title="#{bundle.CreateVehiculeTitle_idVehicule}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_idVehicule}"/>
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_immatriculation}" for="immatriculation" />
-                    <h:inputText id="immatriculation" value="#{vehiculeController.selected.immatriculation}" title="#{bundle.CreateVehiculeTitle_immatriculation}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_immatriculation}"/>
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_marque}" for="marque" />
-                    <h:inputText id="marque" value="#{vehiculeController.selected.marque}" title="#{bundle.CreateVehiculeTitle_marque}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_marque}"/>
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_modele}" for="modele" />
-                    <h:inputText id="modele" value="#{vehiculeController.selected.modele}" title="#{bundle.CreateVehiculeTitle_modele}" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_modele}"/>
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_categorie}" for="categorie" />
-                    <h:inputText id="categorie" value="#{vehiculeController.selected.categorie}" title="#{bundle.CreateVehiculeTitle_categorie}" />
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_couleur}" for="couleur" />
-                    <h:inputText id="couleur" value="#{vehiculeController.selected.couleur}" title="#{bundle.CreateVehiculeTitle_couleur}" />
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_kilometrage}" for="kilometrage" />
-                    <h:inputText id="kilometrage" value="#{vehiculeController.selected.kilometrage}" title="#{bundle.CreateVehiculeTitle_kilometrage}" />
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_tarifJournalier}" for="tarifJournalier" />
-                    <h:inputText id="tarifJournalier" value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.CreateVehiculeTitle_tarifJournalier}" />
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_etatVehicule}" for="etatVehicule" />
-                    <h:inputText id="etatVehicule" value="#{vehiculeController.selected.etatVehicule}" title="#{bundle.CreateVehiculeTitle_etatVehicule}" />
-                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_statutDisponible}" for="statutDisponible" />
-                    <h:inputText id="statutDisponible" value="#{vehiculeController.selected.statutDisponible}" title="#{bundle.CreateVehiculeTitle_statutDisponible}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{vehiculeController.create}" value="#{bundle.CreateVehiculeSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{vehiculeController.prepareList}" value="#{bundle.CreateVehiculeShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateVehiculeIndexLink}"/>
+            <p class="text-muted"><h:outputText value="#{bundle.AutoIdInfo}" /></p>
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+            <h:form styleClass="row g-3">
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_immatriculation}" for="immatriculation" styleClass="form-label" />
+                    <h:inputText id="immatriculation" value="#{vehiculeController.selected.immatriculation}" styleClass="form-control" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_immatriculation}">
+                        <f:validateLength minimum="5" maximum="50" />
+                    </h:inputText>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_marque}" for="marque" styleClass="form-label" />
+                    <h:inputText id="marque" value="#{vehiculeController.selected.marque}" styleClass="form-control" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_marque}" />
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_modele}" for="modele" styleClass="form-label" />
+                    <h:inputText id="modele" value="#{vehiculeController.selected.modele}" styleClass="form-control" required="true" requiredMessage="#{bundle.CreateVehiculeRequiredMessage_modele}" />
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_categorie}" for="categorie" styleClass="form-label" />
+                    <h:inputText id="categorie" value="#{vehiculeController.selected.categorie}" styleClass="form-control">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_couleur}" for="couleur" styleClass="form-label" />
+                    <h:inputText id="couleur" value="#{vehiculeController.selected.couleur}" styleClass="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_kilometrage}" for="kilometrage" styleClass="form-label" />
+                    <h:inputText id="kilometrage" value="#{vehiculeController.selected.kilometrage}" styleClass="form-control">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_tarifJournalier}" for="tarifJournalier" styleClass="form-label" />
+                    <h:inputText id="tarifJournalier" value="#{vehiculeController.selected.tarifJournalier}" styleClass="form-control" required="true">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_etatVehicule}" for="etatVehicule" styleClass="form-label" />
+                    <h:selectOneMenu id="etatVehicule" value="#{vehiculeController.selected.etatVehicule}" styleClass="form-select" required="true">
+                        <f:selectItem itemLabel="Neuf" itemValue="Neuf" />
+                        <f:selectItem itemLabel="Bon état" itemValue="Bon état" />
+                        <f:selectItem itemLabel="Usure normale" itemValue="Usure normale" />
+                        <f:selectItem itemLabel="À réparer" itemValue="À réparer" />
+                    </h:selectOneMenu>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateVehiculeLabel_statutDisponible}" for="statutDisponible" styleClass="form-label" />
+                    <h:selectOneMenu id="statutDisponible" value="#{vehiculeController.selected.statutDisponible}" styleClass="form-select" required="true">
+                        <f:selectItem itemLabel="#{bundle.VehiculeStatutDisponible}" itemValue="Disponible" />
+                        <f:selectItem itemLabel="#{bundle.VehiculeStatutIndisponible}" itemValue="Indisponible" />
+                    </h:selectOneMenu>
+                </div>
+                <div class="col-12 d-flex gap-2">
+                    <h:commandLink styleClass="btn btn-primary" action="#{vehiculeController.create}" value="#{bundle.CreateVehiculeSaveLink}" />
+                    <h:commandLink styleClass="btn btn-outline-secondary" action="#{vehiculeController.prepareList}" value="#{bundle.CreateVehiculeShowAllLink}" immediate="true" />
+                    <h:link outcome="/index" styleClass="btn btn-outline-secondary" value="#{bundle.CreateVehiculeIndexLink}" />
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

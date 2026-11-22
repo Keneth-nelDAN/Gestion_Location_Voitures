@@ -4,6 +4,9 @@ import com.mycompany.jsf15gestionlocationvoitures.util.JsfUtil;
 import com.mycompany.jsf15gestionlocationvoitures.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -83,6 +86,8 @@ public class RetourController implements Serializable {
 
     public String prepareCreate() {
         current = new Retour();
+        current.setDateRetourEffective(new Date());
+        current.setEtatAuRetour("Bon état");
         selectedItemIndex = -1;
         return "Create";
     }
@@ -194,6 +199,16 @@ public class RetourController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(getJpaController().findRetourEntities(), true);
+    }
+
+    public SelectItem[] getLocationsSansRetourSelectOne() {
+        List<Location> disponibles = new ArrayList<>();
+        for (Location location : new LocationJpaController(utx, emf).findLocationEntities()) {
+            if (location.getRetour() == null) {
+                disponibles.add(location);
+            }
+        }
+        return JsfUtil.getSelectItems(disponibles, true);
     }
 
     @FacesConverter(forClass = Retour.class)

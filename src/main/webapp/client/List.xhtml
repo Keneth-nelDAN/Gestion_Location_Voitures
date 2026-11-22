@@ -16,9 +16,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListClientEmpty}" rendered="#{clientController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{clientController.items.rowCount > 0}">
-                    <h:outputText value="#{clientController.pagination.pageFirstItem + 1}..#{clientController.pagination.pageLastItem + 1}/#{clientController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{clientController.previous}" value="#{bundle.Previous} #{clientController.pagination.pageSize}" rendered="#{clientController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{clientController.next}" value="#{bundle.Next} #{clientController.pagination.pageSize}" rendered="#{clientController.pagination.hasNextPage}"/>&nbsp;
+                    <h:outputText value="#{clientController.pagination.pageFirstItem + 1}..#{clientController.pagination.pageLastItem + 1}/#{clientController.pagination.itemsCount}"/>&#160;
+                    <h:commandLink action="#{clientController.previous}" value="#{bundle.Previous} #{clientController.pagination.pageSize}" rendered="#{clientController.pagination.hasPreviousPage}"/>&#160;
+                    <h:commandLink action="#{clientController.next}" value="#{bundle.Next} #{clientController.pagination.pageSize}" rendered="#{clientController.pagination.hasNextPage}"/>&#160;
                     <h:dataTable value="#{clientController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -72,7 +72,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="&#160;"/>
                             </f:facet>
                             <h:commandLink action="#{clientController.prepareView}" value="#{bundle.ListClientViewLink}"/>
                             <h:outputText value=" "/>

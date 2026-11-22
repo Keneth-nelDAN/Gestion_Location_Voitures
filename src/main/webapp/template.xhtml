@@ -5,64 +5,300 @@
       xmlns:h="jakarta.faces.html">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title><ui:insert name="title">Gestion Location Voitures</ui:insert></title>
+
+        <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/template/assets/images/favicon.ico" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/core/libs.min.css" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/aos/dist/aos.css" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/hope-ui.min.css?v=4.0.0" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/custom.min.css?v=4.0.0" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/dark.min.css" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/customizer.min.css" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/template/assets/css/rtl.min.css" />
+
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <ui:insert name="head" />
     </h:head>
 
     <h:body>
-        <h1>
-            <ui:insert name="title">Default Title</ui:insert>
-        </h1>
-        <p>
-            <ui:insert name="body">Default Body</ui:insert>
-        </p>
-    </h:body>
-    
-    <script>
+        <div id="loading">
+            <div class="loader simple-loader">
+                <div class="loader-body"></div>
+            </div>
+        </div>
 
-        const playCarSound = (type) => {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
+        <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all">
+            <div class="sidebar-header d-flex align-items-center justify-content-start">
+                <a href="#{facesContext.externalContext.requestContextPath}/faces/index.xhtml" class="navbar-brand">
+                    <div class="logo-main">
+                        <div class="logo-normal">
+                            <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/favicon.ico" alt="Logo" style="width:30px;height:30px;" />
+                        </div>
+                        <div class="logo-mini">
+                            <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/favicon.ico" alt="Logo" style="width:30px;height:30px;" />
+                        </div>
+                    </div>
+                    <h4 class="logo-title">Location Voitures</h4>
+                </a>
+                <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                    <i class="icon">
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Arrow%20-%20Left.svg" alt="" style="width:20px;height:20px;" />
+                    </i>
+                </div>
+            </div>
+            <div class="sidebar-body pt-0 data-scrollbar">
+                <div class="sidebar-list">
+                    <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
+                        <li class="nav-item static-item">
+                            <a class="nav-link static-item disabled" href="#" tabindex="-1">
+                                <span class="default-icon">Navigation</span>
+                                <span class="mini-icon">-</span>
+                            </a>
+                        </li>
+                        <ui:fragment rendered="#{securityController.staff}">
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/index.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Home.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Tableau de bord</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/client/List.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Profile.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Clients</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/vehicule/List.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Category.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Véhicules</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/location/List.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Ticket.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Locations</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/location/Calendar.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Calendar.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Calendrier</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/retour/List.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Activity.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Retours</span>
+                                </a>
+                            </li>
+                            <li><hr class="hr-horizontal" /></li>
+                            <li class="nav-item static-item">
+                                <a class="nav-link static-item disabled" href="#" tabindex="-1">
+                                    <span class="default-icon">Compte</span>
+                                    <span class="mini-icon">-</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/utilisateur/List.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Setting.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Utilisateurs</span>
+                                </a>
+                            </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{securityController.client}">
+                            <li class="nav-item">
+                                <a href="#{facesContext.externalContext.requestContextPath}/faces/espace-client/Vehicules.xhtml" class="nav-link">
+                                    <i class="icon">
+                                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Category.svg" alt="" style="width:20px;height:20px;" />
+                                    </i>
+                                    <span class="item-name">Véhicules disponibles</span>
+                                </a>
+                            </li>
+                        </ui:fragment>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-footer"></div>
+        </aside>
 
-                if (type === 'klaxon') {
+        <main class="main-content">
+            <div class="position-relative iq-banner">
+                <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
+                    <div class="container-fluid navbar-inner">
+                        <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                            <i class="icon">
+                                <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Arrow%20-%20Right.svg" alt="" style="width:20px;height:20px;" />
+                            </i>
+                        </div>
+                        <div class="input-group search-input">
+                            <span class="input-group-text">
+                                <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Search.svg" alt="" style="width:18px;height:18px;" />
+                            </span>
+                            <input type="search" class="form-control" placeholder="Rechercher..." />
+                        </div>
+                        <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link search-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Notification.svg" alt="" style="width:24px;height:24px;" />
+                                    <span class="bg-danger dots"></span>
+                                </a>
+                                <div class="p-0 sub-drop dropdown-menu dropdown-menu-end">
+                                    <div class="m-0 shadow-none card">
+                                        <div class="py-3 card-header d-flex justify-content-between bg-primary">
+                                            <h5 class="mb-0 text-white">Notifications</h5>
+                                        </div>
+                                        <div class="p-0 card-body">
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-3 w-100">
+                                                        <h6 class="mb-0">Bienvenue dans l'application</h6>
+                                                        <p class="mb-0">Gérez vos locations en toute simplicité.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid avatar-40 rounded-pill" src="#{facesContext.externalContext.requestContextPath}/template/assets/images/shapes/01.png" alt="admin" />
+                                    <span class="ms-2"><h:outputText value="#{securityController.remoteUser}" /></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <ui:fragment rendered="#{securityController.staff}">
+                                        <li>
+                                            <a href="#{facesContext.externalContext.requestContextPath}/faces/utilisateur/List.xhtml" class="dropdown-item">Utilisateurs</a>
+                                        </li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                    </ui:fragment>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink styleClass="dropdown-item" action="#{securityController.logout}" value="Déconnexion" />
+                                        </h:form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="iq-navbar-header" style="height: 180px;">
+                    <div class="container-fluid iq-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="flex-wrap d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h1 class="text-white"><ui:insert name="title">Gestion Location Voitures</ui:insert></h1>
+                                        <p class="text-white">Clients, véhicules, locations et retours — tout au même endroit.</p>
+                                    </div>
+                                    <div>
+                                        <a href="#{facesContext.externalContext.requestContextPath}/faces/index.xhtml" class="btn btn-link btn-soft-light">Accueil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iq-header-img">
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX" />
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header1.png" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX" />
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header2.png" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX" />
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header3.png" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX" />
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header4.png" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX" />
+                        <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/dashboard/top-header5.png" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX" />
+                    </div>
+                </div>
+            </div>
 
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-                    osc.frequency.setValueAtTime(554.37, audioCtx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.3);
-                } else if (type === 'moteur') {
+            <div class="conatiner-fluid content-inner mt-n5 py-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title mb-0"><ui:insert name="title">Gestion Location Voitures</ui:insert></h4>
+                                </div>
+                            </div>
+                            <div class="card-body app-content">
+                                <ui:insert name="body">Default Body</ui:insert>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(80, audioCtx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.6);
+            <footer class="footer">
+                <div class="footer-body">
+                    <div class="right-panel">
+                        © <script type="text/javascript">document.write(new Date().getFullYear());</script> Gestion Location Voitures.
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/template/assets/js/core/libs.min.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/template/assets/js/core/external.min.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/aos/dist/aos.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/template/assets/js/plugins/setting.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/template/assets/js/hope-ui.js" defer="defer"></script>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            const playCarSound = (type) => {
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    if (type === 'klaxon') {
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                        osc.frequency.setValueAtTime(554.37, audioCtx.currentTime + 0.1);
+                        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    } else if (type === 'moteur') {
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.4);
+                        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.6);
+                    }
+                } catch (e) { console.log('Audio non pris en charge'); }
+            };
+
+            document.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BODY' || e.target.classList.contains('bg-container')) {
+                    playCarSound('klaxon');
                 }
-            } catch(e) { console.log('Audio non pris en charge'); }
-        };
-
-        
-        document.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BODY' || e.target.classList.contains('bg-container')) {
-                playCarSound('klaxon');
-            }
-        });
-
-        
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', () => {
-                playCarSound('moteur');
             });
-        });
-    </script>
 
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', () => {
+                    playCarSound('moteur');
+                });
+            });
+            //]]>
+        </script>
+    </h:body>
 </html>

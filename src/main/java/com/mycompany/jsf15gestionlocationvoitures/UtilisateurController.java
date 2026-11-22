@@ -4,6 +4,7 @@ import com.mycompany.jsf15gestionlocationvoitures.util.JsfUtil;
 import com.mycompany.jsf15gestionlocationvoitures.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -83,6 +84,8 @@ public class UtilisateurController implements Serializable {
 
     public String prepareCreate() {
         current = new Utilisateur();
+        current.setDateCreation(new Date());
+        current.setRole("UTILISATEUR");
         selectedItemIndex = -1;
         return "Create";
     }
@@ -106,6 +109,13 @@ public class UtilisateurController implements Serializable {
 
     public String update() {
         try {
+            String motDePasse = current.getMotDePasse();
+            if (motDePasse == null || motDePasse.isEmpty()) {
+                Utilisateur existant = getJpaController().findUtilisateur(current.getIdUtilisateur());
+                if (existant != null) {
+                    current.setMotDePasse(existant.getMotDePasse());
+                }
+            }
             getJpaController().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UtilisateurUpdated"));
             return "View";

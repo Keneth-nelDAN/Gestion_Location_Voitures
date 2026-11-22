@@ -1,27 +1,281 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="/client/List" value="Show All Client Items"/>
-        <br />
-        <h:link outcome="/location/List" value="Show All Location Items"/>
-        <br />
-        <h:link outcome="/retour/List" value="Show All Retour Items"/>
-        <br />
-        <h:link outcome="/utilisateur/List" value="Show All Utilisateur Items"/>
-        <br />
-        <h:link outcome="/vehicule/List" value="Show All Vehicule Items"/>
-    </h:body>
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Tableau de bord</ui:define>
+        <ui:define name="head">
+            <script type="text/javascript">
+                //<![CDATA[
+                window.addEventListener('load', function () {
+                    if (typeof ApexCharts === 'undefined') {
+                        return;
+                    }
+                    var render = function (id, options) {
+                        var element = document.getElementById(id);
+                        if (element) {
+                            new ApexCharts(element, options).render();
+                        }
+                    };
+                    var baseGrid = { borderColor: '#eef1f5', strokeDashArray: 4 };
 
+                    render('chartLocations', {
+                        series: [{ name: 'Locations', data: #{dashboardController.monthlyLocationsJson} }],
+                        chart: { height: 280, type: 'area', toolbar: { show: false }, fontFamily: 'inherit' },
+                        colors: ['#3a57e8'],
+                        dataLabels: { enabled: false },
+                        stroke: { curve: 'smooth', width: 3 },
+                        fill: { type: 'gradient', gradient: { shadeIntensity: 0.4, opacityFrom: 0.45, opacityTo: 0.05 } },
+                        xaxis: { categories: #{dashboardController.monthlyLabelsJson} },
+                        grid: baseGrid,
+                        tooltip: { y: { formatter: function (value) { return value + ' location(s)'; } } }
+                    });
 
+                    render('chartStatus', {
+                        series: #{dashboardController.statusCountsJson},
+                        labels: #{dashboardController.statusLabelsJson},
+                        chart: { height: 280, type: 'donut', fontFamily: 'inherit' },
+                        colors: ['#3a57e8', '#4bc7d2', '#f7b731', '#eb5e6d', '#8e9cae'],
+                        legend: { position: 'bottom' },
+                        dataLabels: { enabled: true },
+                        stroke: { width: 2, colors: ['#ffffff'] }
+                    });
 
+                    render('chartRevenue', {
+                        series: [{ name: 'Montant estimé', data: #{dashboardController.monthlyRevenueJson} }],
+                        chart: { height: 260, type: 'bar', toolbar: { show: false }, fontFamily: 'inherit' },
+                        colors: ['#4bc7d2'],
+                        plotOptions: { bar: { borderRadius: 6, columnWidth: '45%' } },
+                        dataLabels: { enabled: false },
+                        xaxis: { categories: #{dashboardController.monthlyLabelsJson} },
+                        grid: baseGrid,
+                        tooltip: { y: { formatter: function (value) { return new Intl.NumberFormat('fr-FR').format(value) + ' FCFA'; } } }
+                    });
 
+                    render('chartVehicles', {
+                        series: [{ name: 'Locations', data: #{dashboardController.topVehicleCountsJson} }],
+                        chart: { height: 260, type: 'bar', horizontal: true, toolbar: { show: false }, fontFamily: 'inherit' },
+                        colors: ['#3a57e8'],
+                        plotOptions: { bar: { borderRadius: 6, horizontal: true, barHeight: '55%' } },
+                        dataLabels: { enabled: true },
+                        yaxis: { categories: #{dashboardController.topVehicleLabelsJson} },
+                        grid: baseGrid
+                    });
+                });
+                //]]>
+            </script>
+        </ui:define>
+        <ui:define name="body">
+            <p class="text-muted mb-4">
+                Vue d'ensemble de l'activité : locations, clients, véhicules et revenus estimés.
+            </p>
 
+            <div class="row">
+                <div class="col-md-6 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div>
+                                    <p class="text-muted mb-1">Locations actives</p>
+                                    <h3 class="mb-0">#{dashboardController.activeLocationCount}</h3>
+                                </div>
+                                <span class="bg-soft-primary rounded p-3">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Activity.svg" alt="" style="width:24px;height:24px;" />
+                                </span>
+                            </div>
+                            <h:link outcome="/location/Calendar" styleClass="btn btn-sm btn-primary">Voir le calendrier</h:link>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div>
+                                    <p class="text-muted mb-1">Clients</p>
+                                    <h3 class="mb-0">#{dashboardController.clientCount}</h3>
+                                </div>
+                                <span class="bg-soft-success rounded p-3">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Profile.svg" alt="" style="width:24px;height:24px;" />
+                                </span>
+                            </div>
+                            <h:link outcome="/client/List" styleClass="btn btn-sm btn-success">Gérer les clients</h:link>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div>
+                                    <p class="text-muted mb-1">Véhicules disponibles</p>
+                                    <h3 class="mb-0">
+                                        #{dashboardController.availableVehiculeCount}<span class="fs-6 text-muted"> / #{dashboardController.vehiculeCount}</span>
+                                    </h3>
+                                </div>
+                                <span class="bg-soft-info rounded p-3">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Category.svg" alt="" style="width:24px;height:24px;" />
+                                </span>
+                            </div>
+                            <h:link outcome="/vehicule/List" styleClass="btn btn-sm btn-info">Gérer la flotte</h:link>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div>
+                                    <p class="text-muted mb-1">Revenu estimé</p>
+                                    <h3 class="mb-0">
+                                        <h:outputText value="#{dashboardController.totalRevenue}">
+                                            <f:convertNumber pattern="#,##0" />
+                                        </h:outputText>
+                                        <span class="fs-6 text-muted">FCFA</span>
+                                    </h3>
+                                </div>
+                                <span class="bg-soft-warning rounded p-3">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Wallet.svg" alt="" style="width:24px;height:24px;" />
+                                </span>
+                            </div>
+                            <small class="text-muted">Durée moyenne : #{dashboardController.averageDuration} jour(s)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Évolution des locations</h5>
+                                <small class="text-muted">6 derniers mois</small>
+                            </div>
+                            <span class="badge bg-soft-primary text-primary">#{dashboardController.locationCount} au total</span>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartLocations"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Répartition par statut</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartStatus"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Revenu mensuel estimé</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartRevenue"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Véhicules les plus loués</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartVehicles"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Prochaines locations</h5>
+                            </div>
+                            <h:link outcome="/location/List" styleClass="btn btn-sm btn-outline-primary">Toutes les locations</h:link>
+                        </div>
+                        <div class="card-body">
+                            <h:outputText value="Aucune location à venir." rendered="#{empty dashboardController.upcomingLocations}" styleClass="text-muted" />
+                            <h:panelGroup rendered="#{not empty dashboardController.upcomingLocations}" layout="block" styleClass="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Client</th>
+                                            <th>Véhicule</th>
+                                            <th>Début</th>
+                                            <th>Fin</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat value="#{dashboardController.upcomingLocations}" var="location">
+                                            <tr>
+                                                <td>
+                                                    <h:outputText value="#{location.idClient.prenom} #{location.idClient.nom}" />
+                                                </td>
+                                                <td>
+                                                    <h:outputText value="#{location.idVehicule.immatriculation}" />
+                                                </td>
+                                                <td>
+                                                    <h:outputText value="#{location.dateDebutPrevue}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </td>
+                                                <td>
+                                                    <h:outputText value="#{location.dateFinPrevue}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-soft-primary text-primary">
+                                                        <h:outputText value="#{location.statutLocation}" />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h5 class="card-title mb-0">Accès rapide</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <h:link outcome="/location/Create" styleClass="btn btn-primary">Nouvelle location</h:link>
+                                <h:link outcome="/client/Create" styleClass="btn btn-outline-primary">Nouveau client</h:link>
+                                <h:link outcome="/vehicule/Create" styleClass="btn btn-outline-primary">Nouveau véhicule</h:link>
+                                <h:link outcome="/retour/Create" styleClass="btn btn-outline-primary">Enregistrer un retour</h:link>
+                            </div>
+                            <hr />
+                            <p class="text-muted mb-1">#{dashboardController.retourCount} retour(s) enregistré(s).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
 </html>

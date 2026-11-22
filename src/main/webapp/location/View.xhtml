@@ -34,9 +34,19 @@
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewLocationLabel_tarifJournalierApplique}"/>
-                    <h:outputText value="#{locationController.selected.tarifJournalierApplique}" title="#{bundle.ViewLocationTitle_tarifJournalierApplique}"/>
+                    <h:panelGroup>
+                        <h:outputText value="#{locationController.selected.tarifJournalierApplique}" title="#{bundle.ViewLocationTitle_tarifJournalierApplique}">
+                            <f:convertNumber pattern="#,##0" />
+                        </h:outputText>
+                        <h:outputText value="&#160;FCFA"/>
+                    </h:panelGroup>
                     <h:outputText value="#{bundle.ViewLocationLabel_montantEstime}"/>
-                    <h:outputText value="#{locationController.selected.montantEstime}" title="#{bundle.ViewLocationTitle_montantEstime}"/>
+                    <h:panelGroup>
+                        <h:outputText value="#{locationController.selected.montantEstime}" title="#{bundle.ViewLocationTitle_montantEstime}">
+                            <f:convertNumber pattern="#,##0" />
+                        </h:outputText>
+                        <h:outputText value="&#160;FCFA"/>
+                    </h:panelGroup>
                     <h:outputText value="#{bundle.ViewLocationLabel_statutLocation}"/>
                     <h:outputText value="#{locationController.selected.statutLocation}" title="#{bundle.ViewLocationTitle_statutLocation}"/>
                     <h:outputText value="#{bundle.ViewLocationLabel_retour}"/>

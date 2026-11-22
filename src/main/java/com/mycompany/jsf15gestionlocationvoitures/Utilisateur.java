@@ -177,7 +177,11 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.jsf15gestionlocationvoitures.Utilisateur[ idUtilisateur=" + idUtilisateur + " ]";
+        String label = ((prenom == null ? "" : prenom) + " " + (nom == null ? "" : nom)).trim();
+        if (label.isEmpty() && email != null) {
+            label = email;
+        }
+        return (label.isEmpty() ? "Utilisateur" : label) + " (#" + idUtilisateur + ")";
     }
     
 }

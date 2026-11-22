@@ -16,9 +16,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListVehiculeEmpty}" rendered="#{vehiculeController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{vehiculeController.items.rowCount > 0}">
-                    <h:outputText value="#{vehiculeController.pagination.pageFirstItem + 1}..#{vehiculeController.pagination.pageLastItem + 1}/#{vehiculeController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{vehiculeController.previous}" value="#{bundle.Previous} #{vehiculeController.pagination.pageSize}" rendered="#{vehiculeController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{vehiculeController.next}" value="#{bundle.Next} #{vehiculeController.pagination.pageSize}" rendered="#{vehiculeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:outputText value="#{vehiculeController.pagination.pageFirstItem + 1}..#{vehiculeController.pagination.pageLastItem + 1}/#{vehiculeController.pagination.itemsCount}"/>&#160;
+                    <h:commandLink action="#{vehiculeController.previous}" value="#{bundle.Previous} #{vehiculeController.pagination.pageSize}" rendered="#{vehiculeController.pagination.hasPreviousPage}"/>&#160;
+                    <h:commandLink action="#{vehiculeController.next}" value="#{bundle.Next} #{vehiculeController.pagination.pageSize}" rendered="#{vehiculeController.pagination.hasNextPage}"/>&#160;
                     <h:dataTable value="#{vehiculeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -66,7 +66,8 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVehiculeTitle_tarifJournalier}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tarifJournalier}"/>
+                            <h:outputText value="#{item.tarifJournalier}"><f:convertNumber pattern="#,##0" /></h:outputText>
+                            <h:outputText value="&#160;FCFA" styleClass="text-muted"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -82,8 +83,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="&#160;"/>
                             </f:facet>
+                            <h:commandLink action="#{locationController.prepareCreateFromVehicule}" value="#{bundle.ListVehiculeRentLink}" rendered="#{vehiculeController.isDisponible(item)}">
+                                <f:param name="vehiculeId" value="#{item.idVehicule}" />
+                            </h:commandLink>
+                            <h:outputText value=" "/>
                             <h:commandLink action="#{vehiculeController.prepareView}" value="#{bundle.ListVehiculeViewLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{vehiculeController.prepareEdit}" value="#{bundle.ListVehiculeEditLink}"/>

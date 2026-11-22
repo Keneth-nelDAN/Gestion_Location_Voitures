@@ -30,7 +30,12 @@
                     <h:outputText value="#{bundle.ViewVehiculeLabel_kilometrage}"/>
                     <h:outputText value="#{vehiculeController.selected.kilometrage}" title="#{bundle.ViewVehiculeTitle_kilometrage}"/>
                     <h:outputText value="#{bundle.ViewVehiculeLabel_tarifJournalier}"/>
-                    <h:outputText value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.ViewVehiculeTitle_tarifJournalier}"/>
+                    <h:panelGroup>
+                        <h:outputText value="#{vehiculeController.selected.tarifJournalier}" title="#{bundle.ViewVehiculeTitle_tarifJournalier}">
+                            <f:convertNumber pattern="#,##0" />
+                        </h:outputText>
+                        <h:outputText value="&#160;FCFA"/>
+                    </h:panelGroup>
                     <h:outputText value="#{bundle.ViewVehiculeLabel_etatVehicule}"/>
                     <h:outputText value="#{vehiculeController.selected.etatVehicule}" title="#{bundle.ViewVehiculeTitle_etatVehicule}"/>
                     <h:outputText value="#{bundle.ViewVehiculeLabel_statutDisponible}"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
@@ -6,41 +6,48 @@
       xmlns:f="jakarta.faces.core">
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateRetourTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateRetourTitle}" />
         </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_idRetour}" for="idRetour" />
-                    <h:inputText id="idRetour" value="#{retourController.selected.idRetour}" title="#{bundle.CreateRetourTitle_idRetour}" required="true" requiredMessage="#{bundle.CreateRetourRequiredMessage_idRetour}"/>
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_dateRetourEffective}" for="dateRetourEffective" />
-                    <h:inputText id="dateRetourEffective" value="#{retourController.selected.dateRetourEffective}" title="#{bundle.CreateRetourTitle_dateRetourEffective}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+            <p class="text-muted"><h:outputText value="#{bundle.AutoIdInfo}" /></p>
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+            <h:form styleClass="row g-3">
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.AutoDateRetour}" for="dateRetourEffective" styleClass="form-label" />
+                    <h:outputText id="dateRetourEffective" value="#{retourController.selected.dateRetourEffective}" styleClass="form-control-plaintext">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateRetourLabel_kilometrageRetour}" for="kilometrageRetour" styleClass="form-label" />
+                    <h:inputText id="kilometrageRetour" value="#{retourController.selected.kilometrageRetour}" styleClass="form-control">
+                        <f:validateLongRange minimum="0" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_kilometrageRetour}" for="kilometrageRetour" />
-                    <h:inputText id="kilometrageRetour" value="#{retourController.selected.kilometrageRetour}" title="#{bundle.CreateRetourTitle_kilometrageRetour}" />
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_etatAuRetour}" for="etatAuRetour" />
-                    <h:inputText id="etatAuRetour" value="#{retourController.selected.etatAuRetour}" title="#{bundle.CreateRetourTitle_etatAuRetour}" />
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_observations}" for="observations" />
-                    <h:inputText id="observations" value="#{retourController.selected.observations}" title="#{bundle.CreateRetourTitle_observations}" />
-                    <h:outputLabel value="#{bundle.CreateRetourLabel_idLocation}" for="idLocation" />
-                    <h:selectOneMenu id="idLocation" value="#{retourController.selected.idLocation}" title="#{bundle.CreateRetourTitle_idLocation}" required="true" requiredMessage="#{bundle.CreateRetourRequiredMessage_idLocation}">
-                        <f:selectItems value="#{locationController.itemsAvailableSelectOne}"/>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateRetourLabel_etatAuRetour}" for="etatAuRetour" styleClass="form-label" />
+                    <h:selectOneMenu id="etatAuRetour" value="#{retourController.selected.etatAuRetour}" styleClass="form-select" required="true">
+                        <f:selectItem itemLabel="#{bundle.RetourEtatBon}" itemValue="Bon état" />
+                        <f:selectItem itemLabel="#{bundle.RetourEtatUsure}" itemValue="Usure normale" />
+                        <f:selectItem itemLabel="#{bundle.RetourEtatDegrade}" itemValue="Dégradé" />
                     </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{retourController.create}" value="#{bundle.CreateRetourSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{retourController.prepareList}" value="#{bundle.CreateRetourShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateRetourIndexLink}"/>
+                </div>
+                <div class="col-md-6">
+                    <h:outputLabel value="#{bundle.CreateRetourLabel_idLocation}" for="idLocation" styleClass="form-label" />
+                    <h:selectOneMenu id="idLocation" value="#{retourController.selected.idLocation}" styleClass="form-select" required="true" requiredMessage="#{bundle.CreateRetourRequiredMessage_idLocation}">
+                        <f:selectItems value="#{retourController.locationsSansRetourSelectOne}" />
+                    </h:selectOneMenu>
+                </div>
+                <div class="col-12">
+                    <h:outputLabel value="#{bundle.CreateRetourLabel_observations}" for="observations" styleClass="form-label" />
+                    <h:inputTextarea id="observations" value="#{retourController.selected.observations}" styleClass="form-control" rows="3" />
+                </div>
+                <div class="col-12 d-flex gap-2">
+                    <h:commandLink styleClass="btn btn-primary" action="#{retourController.create}" value="#{bundle.CreateRetourSaveLink}" />
+                    <h:commandLink styleClass="btn btn-outline-secondary" action="#{retourController.prepareList}" value="#{bundle.CreateRetourShowAllLink}" immediate="true" />
+                    <h:link outcome="/index" styleClass="btn btn-outline-secondary" value="#{bundle.CreateRetourIndexLink}" />
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

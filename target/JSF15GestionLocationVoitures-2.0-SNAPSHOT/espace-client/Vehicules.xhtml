@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Véhicules disponibles</ui:define>
+        <ui:define name="body">
+            <p class="text-muted mb-4">Choisissez un véhicule disponible et envoyez une demande de location à la société.</p>
+            <h:form>
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
+                <h:outputText value="Aucun véhicule n'est disponible pour le moment." rendered="#{empty clientEspaceController.vehiculesDisponibles}" styleClass="text-muted" />
+                <h:panelGroup rendered="#{not empty clientEspaceController.vehiculesDisponibles}" layout="block" styleClass="table-responsive">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Immatriculation</th>
+                                <th>Marque</th>
+                                <th>Modèle</th>
+                                <th>Catégorie</th>
+                                <th>Couleur</th>
+                                <th>Tarif journalier</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{clientEspaceController.vehiculesDisponibles}" var="vehicule">
+                                <tr>
+                                    <td><h:outputText value="#{vehicule.immatriculation}" /></td>
+                                    <td><h:outputText value="#{vehicule.marque}" /></td>
+                                    <td><h:outputText value="#{vehicule.modele}" /></td>
+                                    <td><h:outputText value="#{vehicule.categorie}" /></td>
+                                    <td><h:outputText value="#{vehicule.couleur}" /></td>
+                                    <td>
+                                        <h:outputText value="#{vehicule.tarifJournalier}"><f:convertNumber pattern="#,##0" /></h:outputText>
+                                        <h:outputText value="&#160;FCFA" styleClass="text-muted" />
+                                    </td>
+                                    <td>
+                                        <h:commandLink styleClass="btn btn-sm btn-primary" action="#{clientEspaceController.prepareDemande}" value="Demander">
+                                            <f:param name="vehiculeId" value="#{vehicule.idVehicule}" />
+                                        </h:commandLink>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

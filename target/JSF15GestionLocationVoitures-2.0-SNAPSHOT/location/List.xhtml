@@ -10,15 +10,19 @@
             <h:outputText value="#{bundle.ListLocationTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <div class="d-flex justify-content-end gap-2 mb-3">
+                <h:link outcome="/location/Calendar" styleClass="btn btn-sm btn-outline-primary">Calendrier</h:link>
+                <h:link outcome="/location/Create" styleClass="btn btn-sm btn-primary">Nouvelle location</h:link>
+            </div>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListLocationEmpty}" rendered="#{locationController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{locationController.items.rowCount > 0}">
-                    <h:outputText value="#{locationController.pagination.pageFirstItem + 1}..#{locationController.pagination.pageLastItem + 1}/#{locationController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{locationController.previous}" value="#{bundle.Previous} #{locationController.pagination.pageSize}" rendered="#{locationController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{locationController.next}" value="#{bundle.Next} #{locationController.pagination.pageSize}" rendered="#{locationController.pagination.hasNextPage}"/>&nbsp;
+                    <h:outputText value="#{locationController.pagination.pageFirstItem + 1}..#{locationController.pagination.pageLastItem + 1}/#{locationController.pagination.itemsCount}"/>&#160;
+                    <h:commandLink action="#{locationController.previous}" value="#{bundle.Previous} #{locationController.pagination.pageSize}" rendered="#{locationController.pagination.hasPreviousPage}"/>&#160;
+                    <h:commandLink action="#{locationController.next}" value="#{bundle.Next} #{locationController.pagination.pageSize}" rendered="#{locationController.pagination.hasNextPage}"/>&#160;
                     <h:dataTable value="#{locationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -62,13 +66,15 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocationTitle_tarifJournalierApplique}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tarifJournalierApplique}"/>
+                            <h:outputText value="#{item.tarifJournalierApplique}"><f:convertNumber pattern="#,##0" /></h:outputText>
+                            <h:outputText value="&#160;FCFA" styleClass="text-muted"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocationTitle_montantEstime}"/>
                             </f:facet>
-                            <h:outputText value="#{item.montantEstime}"/>
+                            <h:outputText value="#{item.montantEstime}"><f:convertNumber pattern="#,##0" /></h:outputText>
+                            <h:outputText value="&#160;FCFA" styleClass="text-muted"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -102,8 +108,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="&#160;"/>
                             </f:facet>
+                            <h:commandLink action="#{locationController.valider}" value="Valider" rendered="#{locationController.isPending(item)}">
+                                <f:setPropertyActionListener target="#{locationController.selected}" value="#{item}" />
+                            </h:commandLink>
+                            <h:outputText value=" " rendered="#{locationController.isPending(item)}"/>
                             <h:commandLink action="#{locationController.prepareView}" value="#{bundle.ListLocationViewLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{locationController.prepareEdit}" value="#{bundle.ListLocationEditLink}"/>
