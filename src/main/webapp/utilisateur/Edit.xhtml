@@ -26,8 +26,8 @@
                 </div>
                 <div class="col-md-6">
                     <h:outputLabel value="#{bundle.EditUtilisateurLabel_email}" for="email" styleClass="form-label" />
-                    <h:inputText id="email" value="#{utilisateurController.selected.email}" styleClass="form-control" required="true" requiredMessage="#{bundle.EditUtilisateurRequiredMessage_email}">
-                        <f:validateRegex pattern="[^@\s]+@[^@\s]+\.[^@\s]+" validatorMessage="#{bundle.EmailInvalid}" />
+                    <h:inputText id="email" value="#{utilisateurController.selected.email}" styleClass="form-control" required="true" requiredMessage="#{bundle.EditUtilisateurRequiredMessage_email}" validatorMessage="#{bundle.EmailInvalid}">
+                        <f:validateRegex pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
                     </h:inputText>
                 </div>
                 <div class="col-md-6">
@@ -38,8 +38,8 @@
                 </div>
                 <div class="col-md-6">
                     <h:outputLabel value="#{bundle.EditUtilisateurLabel_motDePasse}" for="motDePasse" styleClass="form-label" />
-                    <h:inputSecret id="motDePasse" value="#{utilisateurController.selected.motDePasse}" styleClass="form-control">
-                        <f:validateLength minimum="4" validatorMessage="#{bundle.PasswordShort}" />
+                    <h:inputSecret id="motDePasse" value="#{utilisateurController.selected.motDePasse}" styleClass="form-control" validatorMessage="#{bundle.PasswordShort}">
+                        <f:validateLength minimum="4" />
                     </h:inputSecret>
                     <small class="form-text text-muted"><h:outputText value="#{bundle.PasswordKeepInfo}" /></small>
                 </div>

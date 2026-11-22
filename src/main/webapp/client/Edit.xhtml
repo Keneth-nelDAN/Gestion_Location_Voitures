@@ -32,8 +32,8 @@
                 </div>
                 <div class="col-md-6">
                     <h:outputLabel value="#{bundle.EditClientLabel_email}" for="email" styleClass="form-label" />
-                    <h:inputText id="email" value="#{clientController.selected.email}" styleClass="form-control">
-                        <f:validateRegex pattern="[^@\s]+@[^@\s]+\.[^@\s]+" validatorMessage="#{bundle.EmailInvalid}" />
+                    <h:inputText id="email" value="#{clientController.selected.email}" styleClass="form-control" validatorMessage="#{bundle.EmailInvalid}">
+                        <f:validateRegex pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
                     </h:inputText>
                 </div>
                 <div class="col-md-6">

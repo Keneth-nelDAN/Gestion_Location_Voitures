@@ -5,6 +5,9 @@
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
     <ui:composition template="/template.xhtml">
+        <f:metadata>
+            <f:viewAction action="#{locationController.prepareCreate}" />
+        </f:metadata>
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateLocationTitle}" />
         </ui:define>

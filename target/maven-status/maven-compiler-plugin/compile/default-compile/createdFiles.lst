@@ -1,6 +1,7 @@
 com/mycompany/jsf15gestionlocationvoitures/Client.class
 com/mycompany/jsf15gestionlocationvoitures/RetourController$RetourControllerConverter.class
 com/mycompany/jsf15gestionlocationvoitures/VehiculeController.class
+com/mycompany/jsf15gestionlocationvoitures/SecurityController.class
 com/mycompany/jsf15gestionlocationvoitures/util/JsfUtil.class
 com/mycompany/jsf15gestionlocationvoitures/exceptions/PreexistingEntityException.class
 com/mycompany/jsf15gestionlocationvoitures/ClientJpaController.class
@@ -12,6 +13,7 @@ com/mycompany/jsf15gestionlocationvoitures/LocationController$LocationController
 com/mycompany/jsf15gestionlocationvoitures/VehiculeController$VehiculeControllerConverter.class
 com/mycompany/jsf15gestionlocationvoitures/exceptions/NonexistentEntityException.class
 com/mycompany/jsf15gestionlocationvoitures/JakartaRestConfiguration.class
+com/mycompany/jsf15gestionlocationvoitures/ClientEspaceController.class
 com/mycompany/jsf15gestionlocationvoitures/UtilisateurController.class
 com/mycompany/jsf15gestionlocationvoitures/RetourController.class
 com/mycompany/jsf15gestionlocationvoitures/Vehicule.class
@@ -26,6 +28,7 @@ com/mycompany/jsf15gestionlocationvoitures/ClientController$ClientControllerConv
 com/mycompany/jsf15gestionlocationvoitures/ClientController.class
 com/mycompany/jsf15gestionlocationvoitures/UtilisateurJpaController.class
 com/mycompany/jsf15gestionlocationvoitures/RetourJpaController.class
+com/mycompany/jsf15gestionlocationvoitures/DashboardController.class
 com/mycompany/jsf15gestionlocationvoitures/LocationController.class
 com/mycompany/jsf15gestionlocationvoitures/VehiculeJpaController.class
 com/mycompany/jsf15gestionlocationvoitures/LocationJpaController.class
