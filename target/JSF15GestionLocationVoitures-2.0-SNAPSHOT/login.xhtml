@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <f:metadata>
+        <f:viewAction action="#{loginController.redirectIfLogged}" />
+    </f:metadata>
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,37 +22,35 @@
                 <div class="col-md-8 col-lg-5">
                     <div class="card shadow-sm">
                         <div class="card-body p-4">
-                            <div class="text-center mb-4">
+                            <div class="text-center mb-3">
                                 <img src="#{facesContext.externalContext.requestContextPath}/template/assets/images/favicon.ico" alt="Logo" style="width:48px;height:48px;" />
                                 <h2 class="mt-3 mb-1">Gestion Location Voitures</h2>
                                 <p class="text-muted mb-0">Connexion à l'espace société</p>
                             </div>
 
-                            <h:panelGroup rendered="#{not empty param.error}">
-                                <div class="alert alert-danger" role="alert">#{bundle.LoginError}</div>
-                            </h:panelGroup>
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" />
 
-                            <form method="post" action="#{facesContext.externalContext.requestContextPath}/j_security_check">
+                            <h:form styleClass="mt-3">
                                 <div class="mb-3">
-                                    <label for="j_username" class="form-label">Adresse e-mail</label>
+                                    <h:outputLabel value="Adresse e-mail" for="email" styleClass="form-label" />
                                     <div class="input-group">
                                         <span class="input-group-text">
                                             <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Profile.svg" alt="" style="width:18px;height:18px;" />
                                         </span>
-                                        <input id="j_username" name="j_username" type="email" class="form-control" placeholder="nom@Societe.com" autocomplete="username" required="required" />
+                                        <h:inputText id="email" value="#{loginController.email}" styleClass="form-control" placeholder="nom@Societe.com" required="true" requiredMessage="#{bundle.LoginError}" />
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="j_password" class="form-label">Mot de passe</label>
+                                    <h:outputLabel value="Mot de passe" for="motDePasse" styleClass="form-label" />
                                     <div class="input-group">
                                         <span class="input-group-text">
                                             <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Lock.svg" alt="" style="width:18px;height:18px;" />
                                         </span>
-                                        <input id="j_password" name="j_password" type="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required="required" />
+                                        <h:inputSecret id="motDePasse" value="#{loginController.motDePasse}" styleClass="form-control" placeholder="Mot de passe" required="true" requiredMessage="#{bundle.LoginError}" />
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-                            </form>
+                                <h:commandButton styleClass="btn btn-primary w-100" action="#{loginController.login}" value="Se connecter" />
+                            </h:form>
 
                             <p class="text-muted text-center mt-4 mb-0">L'accès est réservé au personnel de la société de location.</p>
                         </div>
