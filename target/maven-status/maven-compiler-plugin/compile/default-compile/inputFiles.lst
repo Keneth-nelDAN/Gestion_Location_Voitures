@@ -1,3 +1,4 @@
+/home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/AuthFilter.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Client.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/ClientController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/ClientEspaceController.java
@@ -7,6 +8,7 @@
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Location.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/LocationController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/LocationJpaController.java
+/home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/LoginController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/Retour.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/RetourController.java
 /home/keneth/NetBeansProjects/JSF15GestionLocationVoitures/src/main/java/com/mycompany/jsf15gestionlocationvoitures/RetourJpaController.java
