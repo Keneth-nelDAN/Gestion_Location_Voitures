@@ -40,5 +40,7 @@ RUN set -e; \
 
 COPY target/JSF15GestionLocationVoitures-2.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
 
+ENV JAVA_OPTS="-Xms128m -Xmx768m"
+
 EXPOSE 8080
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
