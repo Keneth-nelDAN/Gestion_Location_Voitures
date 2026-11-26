@@ -32,7 +32,7 @@ RUN set -e; \
       sleep 1; \
     done; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command="/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-datasource-class-name=org.postgresql.ds.PGSimpleDataSource)"; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='data-source add --name=LocaDriveDS --jndi-name=java:jboss/datasources/LocaDriveDS --driver-name=postgresql --connection-url="jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require" --user-name=neondb_owner --password=npg_xCVmEL93zkJw'; \
+    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='data-source add --name=LocaDriveDS --jndi-name=java:jboss/datasources/LocaDriveDS --driver-name=postgresql --connection-url="jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require" --user-name=neondb_owner --password=npg_xCVmEL93zkJw --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.novendor.JDBCValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.novendor.NullExceptionSorter'; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command=":shutdown"; \
     wait $SERVER_PID; \
     trap - EXIT; \
