@@ -37,7 +37,7 @@ RUN set -e; \
     trap - EXIT; \
     rm -f /tmp/wildfly-build.log
 
-RUN python3 -c '
+RUN cat <<'EOF' > /tmp/patch_ds.py && python3 /tmp/patch_ds.py && rm -f /tmp/patch_ds.py
 path = "/opt/jboss/wildfly/standalone/configuration/standalone.xml"
 content = open(path, "r", encoding="utf-8").read()
 ds_xml = """
@@ -60,7 +60,7 @@ assert idx != -1, "Balise </datasource> introuvable"
 insert_pos = idx + len(target)
 new_content = content[:insert_pos] + ds_xml + content[insert_pos:]
 open(path, "w", encoding="utf-8").write(new_content)
-'
+EOF
 
 COPY target/JSF15GestionLocationVoitures-2.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
 
