@@ -37,7 +37,7 @@
                                         <span class="input-group-text">
                                             <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Profile.svg" alt="" style="width:18px;height:18px;" />
                                         </span>
-                                        <h:inputText id="email" value="#{loginController.email}" styleClass="form-control" placeholder="Loca@Drive.com" required="true" requiredMessage="#{bundle.LoginError}" />
+                                        <h:inputText id="email" value="#{loginController.email}" styleClass="form-control"  required="true" requiredMessage="#{bundle.LoginError}" />
                                     </div>
                                 </div>
                                 <div class="mb-4">
@@ -46,7 +46,7 @@
                                         <span class="input-group-text">
                                             <img src="#{facesContext.externalContext.requestContextPath}/template/assets/vendor/Iconly/Bold/Lock.svg" alt="" style="width:18px;height:18px;" />
                                         </span>
-                                        <h:inputSecret id="motDePasse" value="#{loginController.motDePasse}" styleClass="form-control" placeholder="Mot de passe" required="true" requiredMessage="#{bundle.LoginError}" />
+                                        <h:inputSecret id="motDePasse" value="#{loginController.motDePasse}" styleClass="form-control"  required="true" requiredMessage="#{bundle.LoginError}" />
                                     </div>
                                 </div>
                                 <h:commandButton styleClass="btn btn-primary w-100" action="#{loginController.login}" value="Se connecter" />

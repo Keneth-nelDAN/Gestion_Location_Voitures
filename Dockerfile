@@ -36,6 +36,7 @@ RUN set -e; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=connection-url,value="jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require")'; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=user-name,value="neondb_owner")'; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=password,value="npg_xCVmEL93zkJw")'; \
+    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:read-attribute(name=connection-url)'; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command=":shutdown"; \
     wait $SERVER_PID; \
     trap - EXIT; \
