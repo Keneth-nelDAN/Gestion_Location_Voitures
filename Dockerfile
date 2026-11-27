@@ -1,7 +1,7 @@
 FROM quay.io/wildfly/wildfly:latest
 
 USER root
-RUN microdnf install -y curl && microdnf clean all
+RUN microdnf install -y curl python3 && microdnf clean all
 
 RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main && \
     curl -fsSL -o /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main/postgresql-42.7.4.jar \
@@ -32,15 +32,35 @@ RUN set -e; \
       sleep 1; \
     done; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command="/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-datasource-class-name=org.postgresql.ds.PGSimpleDataSource)"; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='data-source add --name=LocaDriveDS --jndi-name=java:jboss/datasources/LocaDriveDS --driver-name=postgresql --connection-url="jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require" --user-name=neondb_owner --password=npg_xCVmEL93zkJw --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.novendor.JDBCValidConnectionChecker --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.novendor.NullExceptionSorter'; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=connection-url,value="jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require")'; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=user-name,value="neondb_owner")'; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:write-attribute(name=password,value="npg_xCVmEL93zkJw")'; \
-    /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command='/subsystem=datasources/data-source=LocaDriveDS:read-attribute(name=connection-url)'; \
     /opt/jboss/wildfly/bin/jboss-cli.sh --connect --command=":shutdown"; \
     wait $SERVER_PID; \
     trap - EXIT; \
     rm -f /tmp/wildfly-build.log
+
+RUN python3 -c '
+path = "/opt/jboss/wildfly/standalone/configuration/standalone.xml"
+content = open(path, "r", encoding="utf-8").read()
+ds_xml = """
+                <datasource jndi-name="java:jboss/datasources/LocaDriveDS" pool-name="LocaDriveDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:postgresql://ep-frosty-feather-bet5jpua-pooler.c-9.us-east-2.aws.neon.tech:5432/LocaDrive?sslmode=require</connection-url>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>neondb_owner</user-name>
+                        <password>npg_xCVmEL93zkJw</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.novendor.JDBCValidConnectionChecker"/>
+                        <validate-on-match>true</validate-on-match>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.novendor.NullExceptionSorter"/>
+                    </validation>
+                </datasource>"""
+target = "</datasource>"
+idx = content.find(target)
+assert idx != -1, "Balise </datasource> introuvable"
+insert_pos = idx + len(target)
+new_content = content[:insert_pos] + ds_xml + content[insert_pos:]
+open(path, "w", encoding="utf-8").write(new_content)
+'
 
 COPY target/JSF15GestionLocationVoitures-2.0-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
 
